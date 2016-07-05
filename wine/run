@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+xhost +local:
+
+USER="docker"
+ROOTFS="$(readlink -f ./rootfs)"
+
+docker run -ti --rm \
+       -e DISPLAY=${DISPLAY} \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v ${ROOTFS}/.wine:/home/${USER}/.wine\
+       --net=host\
+       wine /bin/bash
+
+xhost -local:
