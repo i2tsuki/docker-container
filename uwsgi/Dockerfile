@@ -9,5 +9,5 @@ RUN apt-get -yq update && \
 
 RUN mkdir -pv /var/run/uwsgi
 
-USER docker
-ENV HOME /home/docker
+USER root
+EXEC uwsgi /etc/uwsgi/emperor.yaml

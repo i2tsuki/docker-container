@@ -19,4 +19,6 @@ pip3 install --user werkzeug
 cd
 
 docker exec -ti -u 0 uwsgi /bin/bash
+
+# docker swarm
 ```
