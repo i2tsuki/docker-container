@@ -1,0 +1,43 @@
+uwsgi:
+  master: true
+  master-as-root: true
+  log-master: true
+  auto-procname: true  
+  close-on-exec: true
+  die-on-term: true  
+  enable-threads: no
+  lazy-apps: yes
+  manage-script-name: true
+  py-call-osafterfork: true
+  
+  # uid/gid
+  uid: docker
+  gid: uwsgi
+  
+  plugins: python3
+
+  # socket location
+  http-socket: 127.0.0.1:5000
+  # chown-socket: docker:uwsgi
+  # chmod-socket: 666
+  # socket: /var/run/uwsgi/%(vassal-name)-uwsgi.sock
+  # stats: /var/run/uwsgi/%(vassal-name)-stats.sock
+  
+  vassal-name: %n
+  buffer-size: 16384
+
+  # python config
+  workers: 4
+  listen: 100
+  python-path: /home/docker/
+  wsgi: wsgi:app
+  env: PYTHONFAULTHANDLER=1
+  reload-mercy: 60
+
+  # cheaper
+  cheaper-algo: spare
+  cheaper: 2
+  cheaper-initial: 2
+  cheaper-step: 1
+  cheaper-idle: 60
+

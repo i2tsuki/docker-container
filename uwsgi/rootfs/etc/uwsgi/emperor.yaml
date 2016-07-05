@@ -1,0 +1,5 @@
+uwsgi:
+  binary-path: /usr/bin/uwsgi
+  emperor: /etc/uwsgi/vassals
+  emperor-pidfile: /var/run/uwsgi/uwsgi.pid
+  emperor-stats: /var/run/uwsgi/uwsgi.sock
