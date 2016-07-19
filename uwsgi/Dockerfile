@@ -9,5 +9,9 @@ RUN apt-get -yq update && \
 
 RUN mkdir -pv /var/run/uwsgi
 
+ADD rootfs/etc/uwsgi /etc/uwsgi
+ADD rootfs/home/docker /home/docker
+
+EXPOSE 5000
 USER root
-EXEC uwsgi /etc/uwsgi/emperor.yaml
+CMD uwsgi /etc/uwsgi/emperor.yaml
