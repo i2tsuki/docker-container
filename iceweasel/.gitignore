@@ -1,0 +1,7 @@
+rootfs/home/docker/.adobe
+rootfs/home/docker/.cache
+rootfs/home/docker/.config
+rootfs/home/docker/.macromedia
+rootfs/home/docker/.mozilla
+rootfs/home/docker/Desktop
+rootfs/home/docker/Downloads
