@@ -2,7 +2,7 @@
 set -e
 
 # Change Working Directory
-cd $(dirname $(readlink -f $0))
+cd "$(dirname $(readlink -f $0))"
 
 [ -z "${UID}" ] && UID="$(id -u)"
 [ -z "${GID}" ] && GID="$(id -g)"
