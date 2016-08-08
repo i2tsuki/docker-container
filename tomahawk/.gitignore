@@ -1,0 +1,7 @@
+rootfs/home/docker/.bash_history
+rootfs/home/docker/.cache
+rootfs/home/docker/.dbus/
+rootfs/home/docker/.lesshst
+rootfs/home/docker/.local
+
+Dockerfile
