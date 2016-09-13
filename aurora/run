@@ -16,7 +16,6 @@ docker run -ti --rm \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v ${ROOTFS}/home/${USER}:/home/${USER} \
        --net=host \
-       local/aurora /bin/bash
-       # iceweasel /usr/bin/iceweasel --private-window > /dev/null
+       local/aurora firefox --private-window
 
 xhost -local:
