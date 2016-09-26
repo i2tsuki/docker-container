@@ -10,5 +10,7 @@ cd "$(dirname $(readlink -f $0))"
 # Build container
 docker build --build-arg UID=${UID} --build-arg GID=${GID} -t local/aurora .
 
+mkdir -pv ./rootfs/home/docker
+
 # Change directory to previous directory
 cd ${OLDPWD}
