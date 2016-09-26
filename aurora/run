@@ -12,7 +12,7 @@ ROOTFS="$(readlink -f ./rootfs)"
 docker run -ti --rm \
        --name aurora \
        -e DISPLAY=${DISPLAY} \
-       -v /dev/snd:/dev/snd \
+       --device /dev/snd \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v ${ROOTFS}/home/${USER}:/home/${USER} \
        --net=host \
