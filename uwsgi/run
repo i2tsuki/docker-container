@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+USER="docker"
+ROOTFS="$(readlink -f ./rootfs)"
+
+docker run -ti --rm \
+       --name uwsgi \
+       -v ${ROOTFS}/home/${USER}:/home/${USER} \
+       -v ${ROOTFS}/etc/uwsgi:/etc/uwsgi \
+       --net=host \
+       uwsgi /bin/bash
