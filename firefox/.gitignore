@@ -1,4 +1,5 @@
 rootfs/home/docker/.adobe
+rootfs/home/docker/.bash_history
 rootfs/home/docker/.cache
 rootfs/home/docker/.config
 rootfs/home/docker/.macromedia

@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:sid
 
 # Configure user account
 ARG UID=${UID}
@@ -9,8 +9,8 @@ RUN groupadd -g ${GID} docker && \
 
 ADD rootfs/etc/apt/sources.list /etc/apt/sources.list
 
-RUN apt-get -yq update && \
-    apt-get install -yq iceweasel fonts-migmix paman sudo libasound2-plugins flashplugin-nonfree flashplugin-nonfree-extrasound
+RUN apt-get -yq update && apt-get -yq upgrade
+RUN apt-get install -yq firefox-esr fonts-migmix flashplugin-nonfree flashplugin-nonfree-extrasound
 
 USER docker
 ENV HOME /home/docker
