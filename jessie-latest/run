@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+CONTAINER="${PWD##*/}"
+docker run -ti --rm \
+       --name ${CONTAINER} \
+       --net=host \
+       ${CONTAINER} /bin/bash
