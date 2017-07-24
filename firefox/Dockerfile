@@ -1,4 +1,4 @@
-FROM debian:sid
+FROM debian:jessie
 
 # Configure user account
 ARG UID=${UID}
@@ -11,6 +11,7 @@ RUN groupadd -g ${GID} docker && \
 ADD rootfs/etc/apt/sources.list /etc/apt/sources.list
 RUN apt-get -yq update && apt-get -yq upgrade
 RUN apt-get install -yq firefox-esr fonts-migmix flashplugin-nonfree flashplugin-nonfree-extrasound browser-plugin-freshplayer-pepperflash alsa-utils
+RUN yes "toor" | passwd
 
 USER docker
 ENV HOME /home/docker
