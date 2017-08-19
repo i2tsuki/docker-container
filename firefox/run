@@ -1,10 +1,12 @@
 #!/bin/sh
-set -e
+set -eu
 
 xhost +local:
 
 USER="docker"
 ROOTFS="$(readlink -f ./rootfs)"
+
+pactl list | grep -q 'module-x11-publish' || pactl load-module module-x11-publish
 
 docker run -ti --rm \
        --name firefox \
@@ -16,9 +18,12 @@ docker run -ti --rm \
        -e LC_CTYPE=ja_JP.UTF-8 \
        --device /dev/snd \
        --device /dev/dri \
+       -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v ${ROOTFS}/home/${USER}:/home/${USER} \
+       -e DBUS_SESSION_BUS_ADDRESS=${DBUS_SESSION_BUS_ADDRESS} \
        --net=host \
        firefox /usr/bin/firefox --private-window
+       # firefox /bin/bash
 
 xhost -local:

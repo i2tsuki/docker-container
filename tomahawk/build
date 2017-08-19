@@ -7,26 +7,6 @@ cd "$(dirname $(readlink -f $0))"
 [ -z "${UID}" ] && UID="$(id -u)"
 [ -z "${GID}" ] && GID="$(id -g)"
 
-# Create Dockerfile
-cat <<EOF > Dockerfile
-FROM ubuntu:trusty
-
-# Configure user account
-RUN groupadd -g ${GID} docker && \\
-    useradd -m -d /home/docker -s /bin/bash -u ${UID} -g ${GID} docker
-
-RUN apt-get -yq update && \\
-    apt-get install -yq git software-properties-common
-
-RUN add-apt-repository -y ppa:tomahawk/ppa &&
-    apt-get -yq update &&
-    apt-get -yq install tomahawk
-
-USER docker
-
-ENV PULSE_SERVER tcp:127.0.0.1:4713
-ENV QT_GRAPHICSSYSTEM gtk
-EOF
-
 # Build container
-docker build -t tomahawk . && rm -fv ./Dockerfile
+CONTAINER="${PWD##*/}"
+docker build --build-arg UID=${UID} --build-arg GID=${GID} -t ${CONTAINER} .
