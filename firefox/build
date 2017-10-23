@@ -8,4 +8,5 @@ cd "$(dirname $(readlink -f $0))"
 [ -z "${GID}" ] && GID="$(id -g)"
 
 # Build container
+docker pull debian:jessie
 docker build --build-arg UID=${UID} --build-arg GID=${GID} -t firefox .
