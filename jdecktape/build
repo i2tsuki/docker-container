@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+docker pull astefanutti/decktape
+
 # Change Working Directory
 cd "$(dirname $(readlink -f $0))"
 

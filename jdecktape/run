@@ -1,7 +1,10 @@
 #!/bin/sh
-set -e
+set -ex
 
 docker run -ti --rm \
        --name jdecktape \
        --net=host \
+       -v $(readlink -f ./slides):/slides \
        jdecktape /bin/bash
+
+# /decktape/decktape.js --no-sandbox --executablePath chromium-browser remark http://localhost:8000/slide.html /slides/output.pdf

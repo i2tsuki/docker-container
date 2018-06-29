@@ -3,13 +3,9 @@ FROM astefanutti/decktape
 ARG UID=${UID}
 ARG GID=${GID}
 
-# Configure user account
-RUN groupadd -g ${GID} docker && \
-    useradd -m -d /home/docker -s /bin/bash -u ${UID} -g ${GID} docker
+USER root
+RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN apk add --update --no-cache font-ipa@testing bash font-noto font-noto-emoji@testing
 
-RUN apt-get -yq update && \
-    apt-get -yq install fonts-migmix bash
-
-USER docker
-ENTRYPOINT ["/decktape/phantomjs", "/decktape/decktape.js"]
-CMD ["-h"]
+USER node
+ENTRYPOINT /bin/bash
