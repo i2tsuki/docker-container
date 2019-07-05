@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 # Configure user account
 ARG UID=${UID}
