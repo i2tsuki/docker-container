@@ -22,6 +22,7 @@ docker run -ti --rm \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v ${ROOTFS}/home/${USER}:/home/${USER} \
        -e DBUS_SESSION_BUS_ADDRESS=${DBUS_SESSION_BUS_ADDRESS} \
+       --ipc=host \
        --net=host \
        firefox /usr/bin/firefox --private-window
        # firefox /bin/bash
