@@ -1,2 +1,3 @@
-deb http://ftp.jp.debian.org/debian jessie main contrib non-free
-deb http://http.debian.net/debian jessie-backports main contrib
+deb http://ftp.jp.debian.org/debian stretch main contrib non-free
+deb http://http.debian.net/debian stretch-backports main contrib
+deb http://http.debian.net/debian unstable main

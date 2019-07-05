@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.0-experimental
+
 FROM debian:stretch
 
 # Configure user account
@@ -12,8 +14,14 @@ RUN groupadd -g ${GID} docker && \
 RUN yes "toor" | passwd
 
 ADD rootfs/etc/apt/sources.list /etc/apt/sources.list
-RUN apt-get -yq update && apt-get -yq upgrade
-RUN apt-get install -yq firefox-esr fonts-migmix flashplugin-nonfree flashplugin-nonfree-extrasound browser-plugin-freshplayer-pepperflash alsa-utils
+RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
+    --mount=type=cache,id=apt-state,target=/var/lib/apt \
+    apt-get -yq update && \
+    apt-get install -yq -t unstable firefox && \
+    apt-get install -yq fonts-migmix curl wget sudo
+RUN curl https://raw.githubusercontent.com/cybernova/fireflashupdate/master/fireflashupdate.sh -O && \
+    chmod +x fireflashupdate.sh && \
+    ./fireflashupdate.sh
 
 USER docker
 ENV HOME /home/docker
