@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+xhost +local:
+
+docker run -ti --rm \
+       --name netdebug \
+       -e LC_CTYPE=ja_JP.UTF-8 \
+       --device /dev/dri \
+       --net=bridge \
+       netdebug /bin/bash
+
+xhost -local:
