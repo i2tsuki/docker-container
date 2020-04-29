@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.0-experimental
 
-FROM debian:stretch
+FROM ubuntu:20.04
 
 # Configure user account
 ARG UID=${UID}
