@@ -7,9 +7,7 @@ ARG UID=${UID}
 ARG GID=${GID}
 
 RUN groupadd -g ${GID} docker && \
-    useradd -m -d /home/docker -s /bin/bash -u ${UID} -g ${GID} docker && \
-    groupadd -g 18 alsa && \
-    gpasswd -a docker alsa
+    useradd -m -d /home/docker -s /bin/bash -u ${UID} -g ${GID} docker
 
 RUN yes "toor" | passwd
 
