@@ -1,0 +1,31 @@
+#!/bin/sh
+set -u
+
+adb tcpip 5037
+
+xhost +local:
+
+USER="docker"
+DOCKER="$(readlink -f ${USER})"
+
+docker run -ti --rm \
+       --name scrcpy \
+       -e DISPLAY=${DISPLAY} \
+       -e XMODIFIERS="@im=fcitx" \
+       -e GTK_IM_MODULE=fcitx \
+       -e QT_IM_MODULE=fcitx \
+       -e XIMPROGRAM=fcitx \
+       -e LC_CTYPE=ja_JP.UTF-8 \
+       --device /dev/dri \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v /run/user/1000/pulse:/run/pulse \
+       -v ${DOCKER}:/home/${USER} \
+       -v ${HOME}/.android:/home/${USER}/.android\
+       -v /usr/bin/adb:/usr/bin/adb \
+       --ipc=host \
+       --net=host \
+       scrcpy /bin/bash -c 'sleep 1s && scrcpy --bit-rate 8M'
+
+xhost -local:
+
+adb kill-server
