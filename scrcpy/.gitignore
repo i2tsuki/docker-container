@@ -1,0 +1,7 @@
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+
+docker/.bash_history
+docker/.cache
+docker/core
