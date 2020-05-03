@@ -1,1 +1,10 @@
-rootfs/.wine
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+
+docker/.bash_history
+docker/.dbus
+docker/.cache
+docker/.config
+docker/.local
+docker/.wine
