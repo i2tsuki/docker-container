@@ -7,32 +7,5 @@ cd $(dirname $(readlink -f $0))
 [ -z "${UID}" ] && UID="$(id -u)"
 [ -z "${GID}" ] && GID="$(id -g)"
 
-# Create Dockerfile
-cat <<EOF > Dockerfile
-FROM ubuntu:latest
-
-# Configure user account
-RUN groupadd -g ${GID} docker && \\
-    useradd -d /home/docker -s /bin/sh -m -u ${UID} -g ${GID} docker
-    
-RUN dpkg --add-architecture i386 && \\
-    apt-get -yq update && \\
-    apt-get -yq install software-properties-common && \\
-    add-apt-repository ppa:pipelight/stable && \\
-    apt-get -yq update && \\
-    apt-get -yq install winetricks wine1.7
-
-# RUN add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ trusty multiverse" && \\
-#     apt-get update
-
-RUN locale-gen ja_JP.UTF-8
-     
-USER docker
-ENV HOME /home/${DKR_USER}
-ENV LANG ja_JP.UTF-8
-ENV LC_ALL ja_JP.UTF-8
-
-CMD /bin/bash
-EOF
-
-docker build -t wine . && rm -fv ./Dockerfile
+# Build the container image
+docker build --pull --build-arg UID=${UID} --build-arg GID=${GID} -t wine .
