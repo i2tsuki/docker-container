@@ -1,16 +1,28 @@
 #!/bin/sh
-set -e
+set -eu
 
 xhost +local:
 
 USER="docker"
-ROOTFS="$(readlink -f ./rootfs)"
+HOME="$(readlink -f ./docker)"
 
 docker run -ti --rm \
+       --name wine \
        -e DISPLAY=${DISPLAY} \
+       -e XMODIFIERS="@im=fcitx" \
+       -e GTK_IM_MODULE=fcitx \
+       -e QT_IM_MODULE=fcitx \
+       -e XIMPROGRAM=fcitx \
+       -e LC_CTYPE=ja_JP.UTF-8 \
+       -e WINEARCH="win64" \
+       --device /dev/dri \
+       --device /dev/video0 \
+       -v /var/run/cups:/var/run/cups \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
-       -v ${ROOTFS}/.wine:/home/${USER}/.wine\
-       --net=host\
+       -v /run/user/1000/pulse:/run/pulse \
+       -v ${HOME}:/home/${USER} \
+       --ipc=host \
+       --net=host \
        wine /bin/bash
 
 xhost -local:
