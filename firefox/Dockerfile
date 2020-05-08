@@ -11,15 +11,20 @@ RUN groupadd -g ${GID} docker && \
 
 RUN yes "toor" | passwd
 
-ADD rootfs/etc/apt/sources.list /etc/apt/sources.list
-RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
-    --mount=type=cache,id=apt-state,target=/var/lib/apt \
-    apt-get -yq update && \
-    apt-get install -yq -t unstable firefox && \
-    apt-get install -yq fonts-migmix curl wget sudo
-RUN curl https://raw.githubusercontent.com/cybernova/fireflashupdate/master/fireflashupdate.sh -O && \
-    chmod +x fireflashupdate.sh && \
-    ./fireflashupdate.sh
+RUN apt-get -yq update && \
+    apt-get install -yq firefox && \
+    apt-get install -yq fonts-migmix
+
+RUN apt install -y pepperflashplugin-nonfree browser-plugin-freshplayer-pepperflash flashplugin-installer
+
+RUN --mount=type=cache,id=apt,target=/var/cache/apt \
+    apt-get install -yq language-pack-ja && \
+    update-locale LANG=ja_JP.UTF-8
+ENV LANG "ja_JP.UTF-8"
+ENV LC_ALL "ja_JP.UTF-8"
 
 USER docker
 ENV HOME /home/docker
+ENV PULSE_SERVER /run/pulse/native
+
+CMD /bin/bash
