@@ -26,3 +26,19 @@ docker run -ti --rm \
        wine /bin/bash
 
 xhost -local:
+
+## Zwift setup installation
+# apt-get purge -yq mono-complete
+# winetricks dotnet35sp1 win7
+# wine ./ZwiftSetup.exe
+# cd ./.wine/drive_c/Program\ Files\ \(x86\)/Zwift
+# wine ./ZwiftLauncher.exe
+
+## Kindle setup
+# winetricks kindle
+# wine ./.wine/drive_c/Program\ Files/Amazon/Kindle/Kindle.exe
+
+## Remove .wine & Setup .wine
+# rm -rfv ./.wine
+# winetricks corefonts cjkfonts
+# regedit logpixels.reg
