@@ -6,8 +6,6 @@ xhost +local:
 USER="docker"
 ROOTFS="$(readlink -f ./rootfs)"
 
-pactl list | grep -q 'module-x11-publish' || pactl load-module module-x11-publish
-
 docker run -ti --rm \
        --name firefox \
        -e DISPLAY=${DISPLAY} \
