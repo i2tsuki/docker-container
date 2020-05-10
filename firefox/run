@@ -14,12 +14,10 @@ docker run -ti --rm \
        -e QT_IM_MODULE=fcitx \
        -e XIMPROGRAM=fcitx \
        -e LC_CTYPE=ja_JP.UTF-8 \
-       --device /dev/snd \
        --device /dev/dri \
-       -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v /run/user/1000/pulse:/run/pulse \
        -v ${ROOTFS}/home/${USER}:/home/${USER} \
-       -e DBUS_SESSION_BUS_ADDRESS=${DBUS_SESSION_BUS_ADDRESS} \
        --ipc=host \
        --net=host \
        firefox /usr/bin/firefox --private-window
